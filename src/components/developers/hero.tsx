@@ -1,3 +1,4 @@
+import Link from "next/link";
 import UnicornScene from "unicornstudio-react/next";
 
 export function DevelopersHero() {
@@ -71,10 +72,7 @@ export function DevelopersHero() {
           </p>
 
           <div className="flex text-lg gap-6 items-center flex-col sm:flex-row">
-            <a
-              href="https://console.supermemory.ai/"
-              data-analytics-id="hero-get-supermemory"
-            >
+            <Link href="/" data-analytics-id="hero-get-supermemory">
               <div className="relative overflow-hidden text-white rounded-2xl backdrop-blur-sm z-0 before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:transition-all before:duration-200 before:pointer-events-none before:-z-10 before:[mask-image:linear-gradient(to_right,rgba(0,0,0,1),rgba(0,0,0,0.2))] before:[-webkit-mask-image:linear-gradient(to_right,rgba(0,0,0,0.8),rgba(0,0,0,0.3))] before:border-2 before:bg-white/40 before:border-white/30 px-8 py-4 whitespace-nowrap flex items-center gap-4 group w-full sm:w-fit">
                 <span>
                   Get supermemory
@@ -82,16 +80,13 @@ export function DevelopersHero() {
                 </span>
                 <span className="hidden opacity-50 sm:block">⌘ ⏎</span>
               </div>
-            </a>
+            </Link>
 
-            <a
-              href="https://supermemory.ai/docs"
-              data-analytics-id="hero-start-building-docs"
-            >
+            <Link href="/docs" data-analytics-id="hero-start-building-docs">
               <div className="px-8 py-4 relative text-white before:border-2 before:border-white/30 before:rounded-2xl before:content-[''] before:absolute before:inset-0 before:pointer-events-none">
                 <span>Learn more</span>
               </div>
-            </a>
+            </Link>
           </div>
 
           <div className="flex gap-4 flex-col text-base text-white">
@@ -115,68 +110,68 @@ export function DevelopersHero() {
               >
                 <div className="flex gap-4 shrink-0">
                   <img
-                    src="https://supermemory.ai/_astro/product-hunt.Ciyf5YNm.svg"
+                    src="/product-hunt.Ciyf5YNm.svg"
                     alt="logo"
                     className="h-10 mix-blend-lighten shrink-0"
                   />
                   w-auto{" "}
                   <img
-                    src="https://supermemory.ai/_astro/github.CfXqoa4M.svg"
+                    src="/github.CfXqoa4M.svg"
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />
                   <img
-                    src="https://supermemory.ai/_astro/medtech.C6Dus75J.png"
+                    src="/medtech.C6Dus75J.png"
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />
                   <img
-                    src="https://supermemory.ai/_astro/mixus.C89kGzQv.png"
+                    src="/mixus.C89kGzQv.png"
                     alt="logo"
                     className="h-10 mix-blend-lighten shrink-0"
                   />
                   w-auto{" "}
                   <img
-                    src="https://supermemory.ai/_astro/notion.NKlZ2H3_.svg"
+                    src="/notion.NKlZ2H3_.svg"
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />
                   <img
-                    src="https://supermemory.ai/_astro/replit.2D7rjKXR.svg"
+                    src="/replit.2D7rjKXR.svg"
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />
                 </div>
                 <div className="flex gap-4 shrink-0">
                   <img
-                    src="https://supermemory.ai/_astro/product-hunt.Ciyf5YNm.svg"
+                    src="/product-hunt.Ciyf5YNm.svg"
                     alt="logo"
                     className="h-10 mix-blend-lighten shrink-0"
                   />
                   w-auto{" "}
                   <img
-                    src="https://supermemory.ai/_astro/github.CfXqoa4M.svg"
+                    src="/github.CfXqoa4M.svg"
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />
                   <img
-                    src="https://supermemory.ai/_astro/medtech.C6Dus75J.png"
+                    src="/medtech.C6Dus75J.png"
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />
                   <img
-                    src="https://supermemory.ai/_astro/mixus.C89kGzQv.png"
+                    src="/mixus.C89kGzQv.png"
                     alt="logo"
                     className="h-10 mix-blend-lighten shrink-0"
                   />
                   w-auto{" "}
                   <img
-                    src="https://supermemory.ai/_astro/notion.NKlZ2H3_.svg"
+                    src="/notion.NKlZ2H3_.svg"
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />
                   <img
-                    src="https://supermemory.ai/_astro/replit.2D7rjKXR.svg"
+                    src="/replit.2D7rjKXR.svg"
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />

@@ -72,7 +72,7 @@ export function About() {
       </div>
 
       <div
-        className="size-full max-md:hidden flex items-center justify-center "
+        className="size-full max-md:hidden flex items-center justify-center"
         id="about-anchor"
       >
         <div className="relative  size-[500px] flex items-center justify-center">
