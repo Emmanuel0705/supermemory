@@ -88,25 +88,23 @@ export default function DocsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-
+    <div className="min-h-screen">
       <main className="pt-24">
         {/* Hero Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 ">
           <div className="max-w-7xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
+              <h1 className="text-5xl md:text-7xl font-bold  mb-6">
                 supermemory{" "}
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Documentation
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8">
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-8">
                 Everything you need to integrate supermemory into your
                 applications and build the future of AI-powered memory.
               </p>
@@ -150,7 +148,7 @@ export default function DocsPage() {
               viewport={{ once: true }}
               className="mb-12"
             >
-              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+              <h2 className="text-3xl font-bold  mb-8 text-center">
                 Quick Links
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -161,15 +159,13 @@ export default function DocsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                    className="bg-muted rounded-xl p-6 shadow-lg border hover:shadow-xl transition-shadow duration-300 cursor-pointer"
                   >
                     <div className="flex items-center space-x-3 mb-3">
-                      <link.icon className="w-6 h-6 text-blue-600" />
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        {link.title}
-                      </h3>
+                      <link.icon className="w-6 h-6 text-foreground" />
+                      <h3 className="text-lg font-semibold ">{link.title}</h3>
                     </div>
-                    <p className="text-gray-600 text-sm mb-4">
+                    <p className="text-muted-foreground text-sm mb-4">
                       {link.description}
                     </p>
                     <ArrowRight className="w-4 h-4 text-gray-400" />
@@ -181,7 +177,7 @@ export default function DocsPage() {
         </section>
 
         {/* Documentation Sections */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 ">
           <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -190,7 +186,7 @@ export default function DocsPage() {
               viewport={{ once: true }}
               className="mb-12"
             >
-              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+              <h2 className="text-3xl font-bold  mb-8 text-center">
                 Documentation Sections
               </h2>
               <div className="grid md:grid-cols-2 gap-8">
@@ -201,24 +197,24 @@ export default function DocsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300"
+                    className="bg-muted rounded-2xl p-8 shadow-lg border  hover:shadow-xl transition-shadow duration-300"
                   >
                     <div
                       className={`w-16 h-16 bg-gradient-to-r ${section.color} rounded-xl flex items-center justify-center mb-6`}
                     >
                       <section.icon className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-2xl font-bold  mb-4">
                       {section.title}
                     </h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
                       {section.description}
                     </p>
                     <ul className="space-y-2">
                       {section.items.map((item) => (
                         <li
                           key={item}
-                          className="flex items-center space-x-2 text-gray-600"
+                          className="flex items-center space-x-2 text-muted-foreground"
                         >
                           <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
                           <span>{item}</span>
@@ -249,10 +245,8 @@ export default function DocsPage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Quick Start Example
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
+              <h2 className="text-3xl font-bold  mb-6">Quick Start Example</h2>
+              <p className="text-lg text-muted-foreground mb-8">
                 Get up and running with supermemory in just a few lines of code.
               </p>
             </motion.div>
@@ -300,7 +294,7 @@ console.log('Found memories:', results);`}</code>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 ">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -308,15 +302,15 @@ console.log('Found memories:', results);`}</code>
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold  mb-6">
                 Ready to get started?
               </h2>
-              <p className="text-xl text-gray-600 mb-8">
+              <p className="text-xl text-muted-foreground mb-8">
                 Join thousands of developers who are already building with
                 supermemory.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button className="bg-black text-white hover:bg-gray-800 px-8 py-4 text-lg font-medium rounded-lg">
+                <Button className="bg-foreground text-background hover:bg-background hover:text-white px-8 py-4 text-lg font-medium rounded-lg">
                   Get API Key
                 </Button>
                 <Button
@@ -330,8 +324,6 @@ console.log('Found memories:', results);`}</code>
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }
