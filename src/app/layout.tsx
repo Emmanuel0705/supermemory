@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${spaceGrotesk.variable}`}>
       <body className={`antialiased `}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark">
           <main>{children}</main>
         </ThemeProvider>
       </body>
