@@ -1,5 +1,6 @@
 import { Link, Brain, Compass, File, Settings } from "lucide-react";
 import { OrbitingCircles } from "./orbiting-circle";
+import Image from "next/image";
 
 export function About() {
   return (
@@ -76,10 +77,49 @@ export function About() {
         id="about-anchor"
       >
         <div className="relative  size-[500px] flex items-center justify-center">
-          <OrbitingCircles radius={200}>
-            <File />
-            <Settings />
-            <File />
+          <OrbitingCircles radius={240} iconSize={60}>
+            <img
+              src="/notion.NKlZ2H3_.svg"
+              alt="brain avatar"
+              className="size-full"
+              width={60}
+              height={60}
+            />
+            <img
+              src="/onedrive.svg"
+              alt="brain avatar"
+              className="size-full"
+              width={60}
+              height={60}
+            />
+            <img
+              src="/openai.svg"
+              alt="brain avatar"
+              className="size-full"
+              width={60}
+              height={60}
+            />
+            <img
+              src="/cursor2.svg"
+              alt="brain avatar"
+              className="size-full"
+              width={60}
+              height={60}
+            />
+            <img
+              src="/claude.svg"
+              alt="brain avatar"
+              className="size-full"
+              width={60}
+              height={60}
+            />
+            <img
+              src="/gdrive.svg"
+              alt="brain avatar"
+              className="size-full"
+              width={60}
+              height={60}
+            />
           </OrbitingCircles>
         </div>
         <div className="-mr-30 relative">

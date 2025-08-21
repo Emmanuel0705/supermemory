@@ -3,10 +3,8 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Scroll, ScrollControls } from "@react-three/drei";
 import { BrainModel } from "./brain";
 import { Suspense } from "react";
-import { HeroSection } from "./hero";
-import { About } from "./about";
-import { AISection } from "./ai";
-import { Footer } from "../footer";
+
+import { Main } from "./main";
 
 export const AnimatedBrain = () => {
   return (
@@ -91,18 +89,7 @@ export const AnimatedBrain = () => {
                       "radial-gradient(circle, white 5%, transparent 60%)",
                   }}
                 ></div>
-
-                {/* Hero Section */}
-                <HeroSection />
-
-                {/* About Section */}
-                <About />
-
-                {/* Features Section */}
-                <AISection />
-
-                {/* footer  */}
-                <Footer />
+                <Main />
               </div>
             </div>
           </Scroll>
