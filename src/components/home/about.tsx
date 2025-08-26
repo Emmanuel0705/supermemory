@@ -1,6 +1,30 @@
-import { Link, Brain, Compass, File, Settings } from "lucide-react";
+"use client";
+import { Link, Brain, Compass } from "lucide-react";
 import { OrbitingCircles } from "./orbiting-circle";
-import Image from "next/image";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  Variants,
+} from "framer-motion";
+
+const cardVariants: Variants = {
+  offscreen: {
+    opacity: 0,
+    scale: 0,
+  },
+  onscreen: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "keyframes",
+      duration: 0.3,
+      ease: "easeInOut",
+      // delay: 0.5,
+    },
+  },
+};
 
 export function About() {
   return (
@@ -76,7 +100,19 @@ export function About() {
         className="size-full max-md:hidden flex items-center justify-center"
         id="about-anchor"
       >
-        <div className="relative  size-[500px] flex items-center justify-center">
+        <motion.div
+          style={
+            {
+              // scaleX: scaleX,
+              // opacity: opacity,
+            }
+          }
+          variants={cardVariants}
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ amount: 0.5, margin: "-200px 0px -200px 0px" }}
+          className="relative  size-[500px] flex items-center justify-center"
+        >
           <OrbitingCircles radius={240} iconSize={60}>
             <img
               src="/notion.NKlZ2H3_.svg"
@@ -121,7 +157,7 @@ export function About() {
               height={60}
             />
           </OrbitingCircles>
-        </div>
+        </motion.div>
         <div className="-mr-30 relative">
           {/* This div will be the target for the brain animation */}
         </div>

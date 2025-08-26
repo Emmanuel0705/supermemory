@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`scroll-smooth`} suppressHydrationWarning>
       <body className={`antialiased `}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <main>{children}</main>

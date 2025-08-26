@@ -48,6 +48,15 @@ export function BrainModel(props: any) {
       0
     );
     timelineRef.current.to(
+      brainRef.current?.position as any,
+      {
+        duration: 0.7,
+        y: 4,
+        z: 0,
+      },
+      1
+    );
+    timelineRef.current.to(
       brainRef.current?.scale as any,
       {
         duration: 1,
@@ -83,8 +92,6 @@ export function BrainModel(props: any) {
       1.7
     );
   }, []);
-
-  console.log((nodes.freesurff3 as THREE.Mesh).material, "material");
 
   return (
     <group

@@ -28,7 +28,7 @@ export function OrbitingCircles({
   const calculatedDuration = duration / speed;
   return (
     <>
-      {path && (
+      {/* {path && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           version="1.1"
@@ -42,7 +42,7 @@ export function OrbitingCircles({
             fill="none"
           />
         </svg>
-      )}
+      )} */}
       {React.Children.map(children, (child, index) => {
         const angle = (360 / React.Children.count(children)) * index;
         return (
