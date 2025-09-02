@@ -118,7 +118,7 @@ export function Header() {
                 ))}
                 <div className="pt-4 border-t border-white/20">
                   <a
-                    href="https://github.com/taugraindor"
+                    href="https://github.com/taugraindor/taugraindor"
                     className="flex items-center space-x-2 text-white hover:text-gray-200 transition-colors duration-200 mb-4"
                   >
                     <Github className="w-4 h-4" />
