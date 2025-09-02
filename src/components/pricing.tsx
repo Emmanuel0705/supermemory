@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
+import Link from "next/link";
 
 interface PricingTier {
   name: string;
-  price: string;
-  period: string;
+  price?: string;
+  period?: string;
   description: string;
   features: string[];
   popular?: boolean;
@@ -22,32 +23,39 @@ export function Pricing() {
 
   const pricingTiers: PricingTier[] = [
     {
-      name: "Free",
-      price: "$0",
-      period: "/month, billed monthly",
-      description: "For small teams and personal use.",
-      features: ["100K tokens", "Discord support"],
+      name: "Allocation",
+      description: "Your TAU Tokens",
+      // period: "/month, billed monthly",
+      // description: "For small teams and personal use.",
+      features: [
+        "Contribution: 0.01 ETH = $30",
+        "Base Allocation: 10,000 TAU (at $0.003)",
+        "Unsold tokens → burned",
+      ],
       popular: false,
     },
     {
-      name: "Pro",
-      price: "$20",
-      period: "/month, billed monthly",
-      description: "For startups and early stage teams.",
-      features: ["1M tokens (then $10/M)", "Priority support"],
+      name: "Rewards",
+      // price: "$20",
+      description: "Extra Benefits",
+      // description: "For startups and early stage teams.",
+      features: [
+        "5% bonus from your contribution in ETH",
+        "5% bonus from TAU allocation",
+        "Example: 0.01 ETH → +1,000 TAU bonus",
+      ],
       popular: true,
       gradient: true,
     },
     {
-      name: "Custom",
-      price: "Let's Chat",
-      period: "Custom Pricing",
-      description: "Enterprises or larger teams",
+      name: "Staking",
+      // price: "Let's Chat",
+      description: "Auto-Staked Rewards",
+      // description: "Enterprises or larger teams",
       features: [
-        "Premium support (6hr guarantee)",
-        "Data retention",
-        "On-prem or VPC deployments",
-        "Constant monitoring and checks",
+        "Total Staked: 11,000 TAU",
+        "Earn ~15% APR in validator pools",
+        "Unlocks perks: Anchor NFT + DAO voting rights",
       ],
       popular: false,
     },
@@ -168,12 +176,16 @@ export function Pricing() {
                 </h3>
 
                 <div className="flex flex-col gap-3">
-                  <div className="font-light text-4xl leading-10">
-                    {tier.price}
-                  </div>
-                  <div className="text-lg font-light text-zinc-300">
-                    {tier.period}
-                  </div>
+                  {tier.price && (
+                    <div className="font-light text-4xl leading-10">
+                      {tier.price}
+                    </div>
+                  )}
+                  {tier.period && (
+                    <div className="text-lg font-light text-zinc-300">
+                      {tier.period}
+                    </div>
+                  )}
                   <div className="text-lg font-light">{tier.description}</div>
                 </div>
 
@@ -193,20 +205,16 @@ export function Pricing() {
                 </ul>
 
                 <div className="flex w-full mt-auto">
-                  <a
+                  <Link
                     className="p-0.5 whitespace-nowrap group/button font-light text-xl text-white rounded-2xl gradient-button-wrapper bg-card w-full"
                     href="/"
                   >
                     <div className="rounded-[14px] p-1 bg-gradient-to-b from-zinc-800 to-zinc-900/90">
                       <div className="rounded-[10px] flex items-center justify-center group-hover/button:bg-black transition-colors duration-300 py-3 px-16 bg-card shadow-[0_0_10px_rgba(0,0,0,0.4)]">
-                        {tier.name === "Custom"
-                          ? "Get Started"
-                          : tier.name === "Pro"
-                          ? "Upgrade to Pro"
-                          : "Get Started"}
+                        Get Started
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

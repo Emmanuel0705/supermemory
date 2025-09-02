@@ -49,12 +49,12 @@ export function AISection() {
         </div>
 
         <h2 className="text-5xl max-md:text-4xl font-bold relative z-10">
-          AI that understands <span className="italic">you</span>
+          AI that understands <span className="italic">Web3</span>
         </h2>
-        <p className="text-gray-400 opacity-70 text-base max-w-prose relative z-10">
-          supermemory intelligently extracts information from your conversations
-          and apps and pieces together connections between memories to deliver
-          an experience that is truly personalized to you.
+        <p className="text-white opacity-90 text-base max-w-prose relative z-10">
+          TAU intelligently interprets data from your wallets, transactions,
+          dApps, and AI agents — weaving together context across chains to
+          create insights that feel uniquely tailored to you.
         </p>
       </div>
 

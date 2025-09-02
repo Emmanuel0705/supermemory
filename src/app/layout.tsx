@@ -12,24 +12,24 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "supermemory - Unified memory for Claude",
+  title: "tau - Unified memory for Claude",
   description:
-    "supermemory connects to all your favourite apps and services to let you access your memories from anywhere.",
+    "tau connects to all your favourite apps and services to let you access your memories from anywhere.",
   keywords: ["AI", "memory", "Claude", "productivity", "second brain"],
-  authors: [{ name: "supermemory.ai" }],
+  authors: [{ name: "tau.network" }],
   openGraph: {
-    title: "supermemory - Unified memory for Claude",
+    title: "tau - Unified memory for Claude",
     description:
-      "supermemory connects to all your favourite apps and services to let you access your memories from anywhere.",
-    url: "https://supermemory.ai",
-    siteName: "supermemory",
+      "tau connects to all your favourite apps and services to let you access your memories from anywhere.",
+    url: "https://tau.network",
+    siteName: "tau",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "supermemory - Unified memory for Claude",
+    title: "tau - Unified memory for Claude",
     description:
-      "supermemory connects to all your favourite apps and services to let you access your memories from anywhere.",
+      "tau connects to all your favourite apps and services to let you access your memories from anywhere.",
   },
 };
 

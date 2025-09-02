@@ -22,13 +22,7 @@ export function Header() {
         <div className="flex lg:p-3 p-5 gap-4 rounded-xl size-full justify-between items-center">
           {/* Logo */}
           <a className="flex items-center gap-3.5" href="/">
-            <img src="/logo.QY9mG6Yr.svg" alt="logo" className="h-8" />
-            <img
-              id="name-logo"
-              src="/name-logo.i4GG1gso.svg"
-              alt="name-logo"
-              className="h-6 mt-2"
-            />
+            <img src="/logo.QY9mG6Yr.svg" alt="logo" className="h-16 w-auto" />
           </a>
 
           {/* Desktop Navigation */}
@@ -52,26 +46,23 @@ export function Header() {
                     For Developers
                   </a>
                   <a
-                    href="https://github.com/supermemoryai/supermemory"
                     className="flex items-center gap-2"
+                    href="https://github.com/taugraindor"
                   >
                     <Github className="size-3" />
                     <span>9.5K</span>
                   </a>
                   <a
-                    href="https://x.com/supermemoryai?lang=en"
+                    href="https://x.com/taugraindor"
                     className="flex items-center gap-2"
                   >
                     <Twitter className="size-3" />
                     <span>4.1K</span>
                   </a>
                 </div>
-                <a
-                  href="https://console.supermemory.ai/"
-                  className="whitespace-nowrap group text-white w-full md:w-fit rounded-2xl py-3 px-5 border-2 border-white/30 hover:bg-white/10 transition-colors duration-200"
-                >
+                <a className="whitespace-nowrap group text-white w-full md:w-fit rounded-2xl py-3 px-5 border-2 border-white/30 hover:bg-white/10 transition-colors duration-200">
                   <span>
-                    Get supermemory{" "}
+                    Connect Wallet
                     <sup className="text-[0.5rem] -top-1">TM</sup>
                   </span>
                 </a>
@@ -127,25 +118,22 @@ export function Header() {
                 ))}
                 <div className="pt-4 border-t border-white/20">
                   <a
-                    href="https://github.com/supermemoryai/supermemory"
+                    href="https://github.com/taugraindor"
                     className="flex items-center space-x-2 text-white hover:text-gray-200 transition-colors duration-200 mb-4"
                   >
                     <Github className="w-4 h-4" />
                     <span>9.5K</span>
                   </a>
                   <a
-                    href="https://x.com/supermemoryai?lang=en"
+                    href="https://x.com/taugraindor"
                     className="flex items-center space-x-2 text-white hover:text-gray-200 transition-colors duration-200 mb-4"
                   >
                     <Twitter className="w-4 h-4" />
                     <span>4.1K</span>
                   </a>
-                  <a
-                    href="https://console.supermemory.ai/"
-                    className="block w-full text-center text-white rounded-2xl py-3 px-5 border-2 border-white/30 hover:bg-white/10 transition-colors duration-200"
-                  >
+                  <a className="block w-full text-center text-white rounded-2xl py-3 px-5 border-2 border-white/30 hover:bg-white/10 transition-colors duration-200">
                     <span>
-                      Get supermemory{" "}
+                      Connect Wallet{" "}
                       <sup className="text-[0.5rem] -top-1">TM</sup>
                     </span>
                   </a>

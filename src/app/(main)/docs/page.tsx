@@ -21,8 +21,7 @@ export default function DocsPage() {
   const docSections = [
     {
       title: "Getting Started",
-      description:
-        "Quick start guide to integrate supermemory into your application",
+      description: "Quick start guide to integrate tau into your application",
       icon: Zap,
       color: "from-blue-500 to-cyan-500",
       items: [
@@ -99,14 +98,14 @@ export default function DocsPage() {
               transition={{ duration: 0.8 }}
             >
               <h1 className="text-5xl md:text-7xl font-bold  mb-6">
-                supermemory{" "}
+                tau{" "}
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Documentation
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-8">
-                Everything you need to integrate supermemory into your
-                applications and build the future of AI-powered memory.
+                Everything you need to integrate tau into your applications and
+                build the future of AI-powered memory.
               </p>
 
               {/* Search Bar */}
@@ -247,7 +246,7 @@ export default function DocsPage() {
             >
               <h2 className="text-3xl font-bold  mb-6">Quick Start Example</h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Get up and running with supermemory in just a few lines of code.
+                Get up and running with tau in just a few lines of code.
               </p>
             </motion.div>
 
@@ -267,10 +266,10 @@ export default function DocsPage() {
                 </span>
               </div>
               <pre className="text-green-400 text-sm overflow-x-auto">
-                <code>{`import { SuperMemory } from '@supermemory/sdk';
+                <code>{`import { tau } from '@tau/sdk';
 
 // Initialize the client
-const memory = new SuperMemory({
+const memory = new tau({
   apiKey: 'your-api-key'
 });
 
@@ -306,8 +305,7 @@ console.log('Found memories:', results);`}</code>
                 Ready to get started?
               </h2>
               <p className="text-xl text-muted-foreground mb-8">
-                Join thousands of developers who are already building with
-                supermemory.
+                Join thousands of developers who are already building with tau.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button className="bg-foreground text-background hover:bg-background hover:text-white px-8 py-4 text-lg font-medium rounded-lg">

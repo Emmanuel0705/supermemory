@@ -47,7 +47,7 @@ export function About() {
         ></div>
 
         <h2 className="text-5xl max-md:text-4xl max-md:text-center font-bold">
-          Your second brain, always within reach
+          Your Web3 brain, always within reach
         </h2>
 
         <div className="space-y-6">
@@ -58,8 +58,9 @@ export function About() {
               <div className="flex items-start gap-3">
                 <Link className="size-5 text-blue-400 mt-0.5 flex-shrink-0" />
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  supermemory bridges the gaps between your favorite apps, so
-                  your memories stay in sync — no matter where you work.
+                  TAU connects the dots across protocols, dApps, and AI agents —
+                  keeping your data, context, and insights unified no matter
+                  where you operate.
                 </p>
               </div>
             </div>
@@ -72,8 +73,9 @@ export function About() {
               <div className="flex items-start gap-3">
                 <Brain className="size-5 text-purple-400 mt-0.5 flex-shrink-0" />
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  supermemory captures everything — ideas, files, links,
-                  thoughts — and makes it all accessible when you need it most.
+                  TAU captures everything — transactions, analytics, on-chain
+                  signals, off-chain knowledge — and makes it instantly
+                  available when you need it most.
                 </p>
               </div>
             </div>
@@ -86,9 +88,9 @@ export function About() {
               <div className="flex items-start gap-3">
                 <Compass className="size-5 text-emerald-400 mt-0.5 flex-shrink-0" />
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  Wherever you write, browse, or build — supermemory is there,
-                  quietly remembering, connecting, and surfacing what matters
-                  most.
+                  Wherever you build, trade, or explore, TAU is there —
+                  remembering, connecting, and surfacing the intelligence that
+                  powers your next move.
                 </p>
               </div>
             </div>
@@ -113,7 +115,7 @@ export function About() {
           viewport={{ amount: 0.5, margin: "-200px 0px -200px 0px" }}
           className="relative  size-[500px] flex items-center justify-center"
         >
-          <OrbitingCircles radius={240} iconSize={60}>
+          <OrbitingCircles radius={300} iconSize={60}>
             <img
               src="/notion.NKlZ2H3_.svg"
               alt="brain avatar"

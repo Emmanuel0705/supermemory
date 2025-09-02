@@ -32,7 +32,7 @@ export function HeroSection() {
               }}
             ></div>
           </div>
-          <span className="max-md:text-sm">Private beta open now!</span>
+          <span className="max-md:text-sm">Mainnet beta live now!</span>
         </motion.div>
 
         {/* Main Heading */}
@@ -42,10 +42,10 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="flex max-w-2xl overflow-y-visible flex-col text-7xl max-md:text-5xl font-bold font-grotesk"
         >
-          Unified memory for
+          Personalized Intelligence for
           <div className="relative inline-block whitespace-nowrap overflow-y-visible">
             <div style={{ opacity: 1, transform: "none" }}>
-              <span>Claude</span>
+              <span>TAU</span>
             </div>
           </div>
         </motion.h1>
@@ -57,8 +57,9 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-lg max-w-xl max-md:text-base text-gray-300"
         >
-          supermemory connects to all your favourite apps and services to let
-          you access your memories from anywhere.
+          TAU connects your blockchain activity, AI agents, and decentralized
+          apps into a single intelligence layer — giving you personalized
+          insights, memory, and automation across the entire Web3 ecosystem.
         </motion.p>
 
         {/* Action Buttons */}
@@ -74,7 +75,7 @@ export function HeroSection() {
               href="/developers"
             >
               <Wrench className="size-4" />
-              For Developers
+              For Partners
             </Link>
           </div>
 
@@ -83,7 +84,7 @@ export function HeroSection() {
               className="text-white cursor-pointer group justify-center flex items-center gap-3 px-6 py-3 text-lg rounded-md"
               href="/waitlist"
             >
-              Join the waitlist
+              Join the Early Access
               <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </div>

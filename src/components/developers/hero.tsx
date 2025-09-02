@@ -1,5 +1,6 @@
 import Link from "next/link";
 import UnicornScene from "unicornstudio-react/next";
+import { InfiniteMovingCards } from "../infinite-moving-cards";
 
 export function DevelopersHero() {
   return (
@@ -63,19 +64,21 @@ export function DevelopersHero() {
           className="flex animate-fade-slide-up flex-col gap-10 pb-4"
         >
           <h1 className="text-[5rem] max-sm:text-5xl max-sm:leading-12 leading-20 max-w-4xl tracking-tighter text-white font-medium">
-            The universal memory API for the AI era
+            The universal intelligence layer for Web3
           </h1>
 
           <p className="text-white text-lg leading-7 max-w-prose">
-            Context engine for your app. Personalise LLMs for your users. <br />
-            Built for developers who ship.
+            A context engine for the decentralized era. Personalize dApps, L2s,
+            and AI agents for your users.
+            <br />
+            Built for partners who want to scale.
           </p>
 
           <div className="flex text-lg gap-6 items-center flex-col sm:flex-row">
-            <Link href="/" data-analytics-id="hero-get-supermemory">
+            <Link href="/" data-analytics-id="hero-get-tau">
               <div className="relative overflow-hidden text-white rounded-2xl backdrop-blur-sm z-0 before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:transition-all before:duration-200 before:pointer-events-none before:-z-10 before:[mask-image:linear-gradient(to_right,rgba(0,0,0,1),rgba(0,0,0,0.2))] before:[-webkit-mask-image:linear-gradient(to_right,rgba(0,0,0,0.8),rgba(0,0,0,0.3))] before:border-2 before:bg-white/40 before:border-white/30 px-8 py-4 whitespace-nowrap flex items-center gap-4 group w-full sm:w-fit">
                 <span>
-                  Get supermemory
+                  Get TAU
                   <sup className="text-[0.5rem] -top-1">TM</sup>
                 </span>
                 <span className="hidden opacity-50 sm:block">⌘ ⏎</span>
@@ -100,15 +103,8 @@ export function DevelopersHero() {
                   "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
               }}
             >
-              <div
-                className="flex w-max"
-                style={{
-                  flexDirection: "row",
-                  gap: "28px",
-                  transform: "translateX(-1.53281px)",
-                }}
-              >
-                <div className="flex gap-4 shrink-0">
+              <InfiniteMovingCards className="flex w-max">
+                <li className="flex gap-4 shrink-0">
                   <img
                     src="/product-hunt.Ciyf5YNm.svg"
                     alt="logo"
@@ -141,8 +137,8 @@ export function DevelopersHero() {
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />
-                </div>
-                <div className="flex gap-4 shrink-0">
+                </li>
+                <li className="flex gap-4 shrink-0">
                   <img
                     src="/product-hunt.Ciyf5YNm.svg"
                     alt="logo"
@@ -175,8 +171,8 @@ export function DevelopersHero() {
                     alt="logo"
                     className="h-10 w-auto mix-blend-lighten shrink-0"
                   />
-                </div>
-              </div>
+                </li>
+              </InfiniteMovingCards>
             </div>
           </div>
         </div>

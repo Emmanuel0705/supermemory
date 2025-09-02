@@ -1,14 +1,89 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Asteric from "../icons/asteric";
 import HeroGrid from "../icons/hero-grid";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import rehypeHighlight from "rehype-highlight";
+import { InfiniteMovingCards } from "../infinite-moving-cards";
+import { CodeBlock } from "../ui/code-block";
+import Link from "next/link";
+
+const tabs = [
+  {
+    name: "Add TauNet",
+    code: `const response = await fetch('https://api.tau.network/v1/context', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer tau_api_key',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    content: 'User swapped 5 ETH for TAU',
+    metadata: {
+      wallet: '0xabc123...',
+      chain: 'Ethereum'
+    }
+  })
+})
+
+const data = await response.json()
+`,
+    language: "ts",
+    filename: "add-taunet.js",
+  },
+  {
+    name: "Search TauNet",
+    code: `const response = await fetch('https://api.tau.network/v1/search', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer tau_api_key',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    query: 'Show me last week’s TAU transactions',
+    filters: { wallet: '0xabc123...' }
+  })
+})
+
+const results = await response.json()
+`,
+    language: "ts",
+    filename: "search-taunet.js",
+  },
+  {
+    name: "Connect dApps & Agents",
+    code: `const response = await fetch('https://api.tau.network/v1/connect', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer tau_api_key',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    integration: 'Uniswap',
+    permissions: ['read:swaps', 'write:alerts']
+  })
+})
+
+const status = await response.json()
+`,
+    language: "ts",
+    filename: "connect-taunet.js",
+  },
+];
 
 export function Developers() {
   const [activeTab, setActiveTab] = useState(0);
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const code = `
+import OpenAI from "openai"
+const client = new OpenAI({
+  baseUrl: "https://api.tau.ai/v1/https://api.openai.com/v1/"
+})
+  `;
+
+  const copyToClipboard = (code: string) => {
+    navigator.clipboard.writeText(code);
   };
 
   return (
@@ -31,12 +106,16 @@ export function Developers() {
         />
 
         <h1 className="text-[5rem] max-sm:text-5xl max-sm:leading-12 leading-20 tracking-tighter text-white font-medium">
-          Context <br />
-          is everything
+          Meaning <br />
+          gives power
         </h1>
 
-        <p className="tracking-tight leading-5 max-sm:mb-10 text-white font-light mx-auto lg:max-w-56">
-          Without it, even the smartest AI is just an expensive chatbot
+        <p className="tracking-tight leading-5 max-sm:mb-10 text-white font-light mx-auto lg:max-w-md">
+          Data without perspective is just numbers on a chain.
+        </p>
+        <p className="tracking-tight leading-5 max-sm:mb-10 text-white font-light mx-auto lg:max-w-md">
+          TAU transforms activity into understanding — giving Web3 intelligence
+          that acts with purpose.{" "}
         </p>
 
         <div className="flex justify-center lg:mt-22 max-sm:hidden">
@@ -55,17 +134,7 @@ export function Developers() {
         >
           <div className="pointer-events-none absolute z-10 inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent"></div>
           <div className="pointer-events-none absolute z-10 inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent"></div>
-          <ul
-            id="marquee"
-            className="flex gap-4 w-max rotator"
-            onMouseDown={(e) => e.currentTarget.classList.add("pressed")}
-            onMouseUp={(e) => e.currentTarget.classList.remove("pressed")}
-            onMouseLeave={(e) => e.currentTarget.classList.remove("pressed")}
-            style={{
-              willChange: "transform",
-              transform: "translateX(-841.55px)",
-            }}
-          >
+          <InfiniteMovingCards>
             <li
               className="bg-zinc-800 text-left p-0.4 rounded-3xl w-96 h-fit transition-transform duration-150 select-none"
               style={{ "--rotation": "-7.5deg" } as React.CSSProperties}
@@ -650,7 +719,7 @@ export function Developers() {
                 </ul>
               </div>
             </li>
-          </ul>
+          </InfiniteMovingCards>
         </div>
       </section>
 
@@ -660,11 +729,12 @@ export function Developers() {
       >
         <div className="mx-auto text-center max-w-[30rem] w-full flex flex-col gap-8">
           <div className="text-zinc-500 uppercase text-xs font-light">
-            solution • solution • solution
+            Swap one line. Unlock deeper context, smarter chains, lower costs.
           </div>
           <p className="tracking-tight leading-5 text-white font-light text-pretty">
-            We&apos;ve seen what it&apos;s like to build memory infrastructure
-            the hard way — so we built supermemory to make it disappear.
+            Just point your dApp or AI agent to api.tau.ai/v1 — and instantly
+            gain cross-chain intelligence, long-term memory, and context-aware
+            execution without rewriting your stack.
           </p>
         </div>
 
@@ -682,13 +752,13 @@ export function Developers() {
               </h2>
               <p className="text-white font-light tracking-tight leading-5 max-w-[30rem] w-full">
                 Just add{" "}
-                <a
-                  href="https://api.supermemory.ai/v3"
+                <Link
+                  href="/docs"
                   className="text-gradient"
                   data-analytics-id="api-base-url"
                 >
-                  api.supermemory.ai/v3
-                </a>{" "}
+                  api.tau.ai/v11
+                </Link>{" "}
                 to your OpenAI base URL — and get automatic long-term context
                 across conversations.
               </p>
@@ -696,78 +766,19 @@ export function Developers() {
 
             <div className="flex flex-col gap-4 lg:gap-12 items-center justify-center">
               <div className="bg-zinc-800 p-0.4 rounded-3xl w-full border-1 border-zinc-700">
-                <div className="bg-card relative rounded-[22px] flex flex-col gap-8 p-8 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
-                  <div className="absolute top-4 right-6 max-sm:hidden">
-                    <button
-                      onClick={() =>
-                        copyToClipboard(
-                          `import OpenAI from &quot;openai&quot;
-const client = new OpenAI({
-   baseUrl: &quot;https://api.supermemory.ai/v3/https://api.openai.com/v1/&quot;
-})`
-                        )
-                      }
-                      className="flex gap-2 items-center cursor-pointer text-white"
-                    >
-                      <div className="size-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="w-full h-full"
-                        >
-                          <rect
-                            width="14"
-                            height="14"
-                            x="8"
-                            y="8"
-                            rx="2"
-                            ry="2"
-                          ></rect>
-                          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
-                        </svg>
-                      </div>
-                      <span>Copy</span>
-                    </button>
-                  </div>
-                  <div className="lg:text-lg text-sm sm:text-base">
-                    <pre
-                      className="overflow-x-auto"
-                      style={{ backgroundColor: "undefined", color: "#ffffff" }}
-                    >
-                      <code>
-                        <span className="hljs-keyword">import</span>{" "}
-                        <span className="hljs-title class_">OpenAI</span>{" "}
-                        <span className="hljs-keyword">from</span>{" "}
-                        <span className="hljs-string">&quot;openai&quot;</span>
-                        <br />
-                        <span className="hljs-keyword">const</span> client ={" "}
-                        <span className="hljs-keyword">new</span>{" "}
-                        <span className="hljs-title class_">OpenAI</span>({"{"}
-                        <br />
-                        &nbsp;&nbsp;<span className="hljs-attr">
-                          baseUrl
-                        </span>:{" "}
-                        <span className="hljs-string">
-                          &quot;https://api.supermemory.ai/v3/https://api.openai.com/v1/&quot;
-                        </span>
-                        <br />
-                        {"}"})
-                      </code>
-                    </pre>
-                  </div>
+                <div className="bg-card relative rounded-[22px] flex flex-col gap-8 p-8 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440] max-w-3xl w-full">
+                  {/* <div className="absolute top-4 right-6 max-sm:hidden"></div> */}
+                  <CodeBlock
+                    code={code}
+                    language="jsx"
+                    filename="add-taunet.js"
+                  />
                 </div>
               </div>
 
-              <a
+              <Link
                 className="p-0.5 whitespace-nowrap group text-white w-fit rounded-2xl gradient-button-wrapper bg-card"
-                href="https://docs.supermemory.ai/"
+                href="/docs"
                 data-analytics-id="solutions-start-building"
               >
                 <div className="rounded-[14px] p-1 bg-gradient-to-b from-zinc-800 to-zinc-900/90">
@@ -777,7 +788,7 @@ const client = new OpenAI({
                     </span>
                   </div>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -787,21 +798,13 @@ const client = new OpenAI({
         id="features"
         className="sm:py-20 py-10 px-4 lg:px-8 2xl:px-12 relative"
       >
-        <div className="grid mx-4 grid-cols-6 -mt-32 absolute inset-0 h-full -z-10 border-x divide-x border-zinc-700 divide-zinc-700">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-
-        <div className="mx-auto text-center max-w-[30rem] w-full flex flex-col gap-8">
+        <div className="mx-auto text-center max-w-3xl w-full flex flex-col gap-8">
           <div className="text-zinc-500 uppercase text-xs font-light">
-            features • features • features
+            Activate the True Power of Your On-Chain Data
           </div>
           <h2 className="text-white text-[44px] tracking-tighter font-medium leading-11">
-            Unlock the Full Potential of Your Data
+            Turn raw blockchain signals into context-aware intelligence that
+            adapts to every transaction, user, and protocol.
           </h2>
         </div>
 
@@ -809,29 +812,8 @@ const client = new OpenAI({
           id="features-grid"
           className="grid grid-cols-6 h-[600px] mt-12 max-sm:mt-0 relative"
         >
-          <div
-            className="bg-gradient-to-b h-1/2 from-sky-100 via-blue-500 to-100%"
-            data-animate="true"
-            style={{ transform: "translateY(100%)" }}
-          ></div>
-          <div
-            className="bg-gradient-to-b h-1/2 self-end col-span-2 from-sky-100 via-blue-500 to-100%"
-            data-animate="true"
-            style={{ transform: "translateY(-100%)" }}
-          ></div>
-          <div
-            className="bg-gradient-to-b h-1/2 col-span-2 from-sky-100 via-blue-500 to-100%"
-            data-animate="true"
-            style={{ transform: "translateY(100%)" }}
-          ></div>
-          <div
-            className="bg-gradient-to-b h-1/2 self-end from-sky-100 via-blue-500 to-100%"
-            data-animate="true"
-            style={{ transform: "translateY(-100%)" }}
-          ></div>
-
           <div className="absolute top-0 left-0 w-full col-start-1 col-span-6 lg:col-start-2 lg:col-span-4 h-full sm:py-24 py-10 px-8">
-            <div className="bg-white h-fit sm:min-h-full border-1 border-zinc-200 w-full divide-y divide-zinc-200 rounded-3xl shadow">
+            <div className="bg-card h-fit sm:min-h-full border-1 border-border w-full divide-y divide-border rounded-3xl shadow">
               <div className="flex justify-between items-center">
                 <div
                   className="m-3 p-1 bg-zinc-100 rounded-2xl gap-1 flex items-center overflow-x-auto whitespace-nowrap"
@@ -845,7 +827,7 @@ const client = new OpenAI({
                     }`}
                     onClick={() => setActiveTab(0)}
                   >
-                    Add memories
+                    Add TauNet
                   </button>
                   <button
                     className={`px-3.5 py-3 rounded-xl transition-colors duration-300 ${
@@ -872,84 +854,27 @@ const client = new OpenAI({
 
               <div className="p-6 text-sm" id="code-display">
                 <div className={activeTab === 0 ? "block" : "hidden"}>
-                  <pre
-                    className="overflow-x-auto"
-                    style={{
-                      backgroundColor: "undefined",
-                      color: "rgb(17, 24, 39)",
-                    }}
-                  >
-                    <code>
-                      <span className="hljs-keyword">const</span> response ={" "}
-                      <span className="hljs-keyword">await</span>{" "}
-                      <span className="hljs-title function_">fetch</span>(
-                      <span className="hljs-string">
-                        &apos;https://api.supermemory.ai/v3/memories&apos;
-                      </span>
-                      , {"{"}
-                      <br />
-                      &nbsp;&nbsp;<span className="hljs-attr">
-                        method
-                      </span>:{" "}
-                      <span className="hljs-string">&apos;POST&apos;</span>,
-                      <br />
-                      &nbsp;&nbsp;<span className="hljs-attr">
-                        headers
-                      </span>: {"{"}
-                      <br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <span className="hljs-string">
-                        &apos;Authorization&apos;
-                      </span>
-                      :{" "}
-                      <span className="hljs-string">
-                        &apos;Bearer
-                        sm_ywdhjSbiDLkLIjjVotSegR_rsq3ZZKNRJmVr12p4ItTcf&apos;
-                      </span>
-                      <br />
-                      &nbsp;&nbsp;{"}"},
-                      <br />
-                      &nbsp;&nbsp;<span className="hljs-attr">body</span>:{" "}
-                      <span className="hljs-title class_">JSON</span>.
-                      <span className="hljs-title function_">stringify</span>(
-                      {"{"}
-                      <br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <span className="hljs-attr">content</span>:{" "}
-                      <span className="hljs-string">
-                        &apos;You can add text&apos;
-                      </span>
-                      ,
-                      <br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <span className="hljs-comment">
-                        {/* or a url https://example.com */}
-                      </span>
-                      <br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <span className="hljs-comment">
-                        {/* or pdfs, videos, images. https://example.com/page.pdf */}
-                      </span>
-                      <br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <span className="hljs-attr">metadata</span>: {"{"}
-                      <br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <span className="hljs-attr">user_id</span>:{" "}
-                      <span className="hljs-string">&apos;123&apos;</span>
-                      <br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
-                      <br />
-                      &nbsp;&nbsp;{"}"}),
-                      <br />
-                      {"}"})
-                      <br />
-                      <br />
-                      <span className="hljs-keyword">const</span> data ={" "}
-                      <span className="hljs-keyword">await</span> response.
-                      <span className="hljs-title function_">json</span>();
-                    </code>
-                  </pre>
+                  <CodeBlock
+                    code={tabs[activeTab].code}
+                    language="jsx"
+                    filename="add-taunet.js"
+                  />
+                </div>
+
+                <div className={activeTab === 1 ? "block" : "hidden"}>
+                  <CodeBlock
+                    code={tabs[activeTab].code}
+                    language="jsx"
+                    filename="add-taunet.js"
+                  />
+                </div>
+
+                <div className={activeTab === 2 ? "block" : "hidden"}>
+                  <CodeBlock
+                    code={tabs[activeTab].code}
+                    language="jsx"
+                    filename="add-taunet.js"
+                  />
                 </div>
               </div>
             </div>
@@ -966,7 +891,7 @@ const client = new OpenAI({
             features • features • features
           </div>
           <h2 className="text-black text-[44px] tracking-tighter font-medium leading-11">
-            Build the memory layer your product deserves
+            Build the trust anchor your chain deserves
           </h2>
         </div>
         <div className="flex flex-col gap-4 lg:gap-6">
@@ -995,18 +920,20 @@ const client = new OpenAI({
                   {" "}
                   <div className="text-zinc-500 uppercase text-xs font-light whitespace-nowrap">
                     {" "}
-                    Your data grows. supermemory keeps up{" "}
+                    L2-Grade Performance at Any Scale
                   </div>{" "}
                   <h3 className="text-black lg:text-[32px] transition-colors duration-300 group-data-[muted=true]:text-zinc-400 text-[28px] tracking-tighter font-normal leading-7">
-                    Enterprise-Grade Performance at Any Scale
+                    Your campaigns grow. TAU keeps up.
                   </h3>{" "}
                 </div>{" "}
               </div>{" "}
               <p className="max-w-[400px] tracking-tight leading-5 font-light text-background">
                 {" "}
-                supermemory is built to handle billions of data points with
-                low-latency retrieval — whether you're indexing documents,
-                video, or structured product data.{" "}
+                TAU is engineered as an Ethereum Layer-2, capable of handling
+                millions of reward claims and proofs with ultra-low latency and
+                low fees. From airdrops to loyalty programs, TAU scales with
+                your ecosystem while ensuring every interaction is cheap, fast,
+                and verifiable.
               </p>{" "}
             </div>{" "}
           </div>
@@ -1035,18 +962,20 @@ const client = new OpenAI({
                   {" "}
                   <div className="text-zinc-500 uppercase text-xs font-light whitespace-nowrap">
                     {" "}
-                    No heavy lifting. Just smart, connected infrastructure{" "}
+                    Seamless Integration Across Chains & Protocols
                   </div>{" "}
                   <h3 className="text-black lg:text-[32px] transition-colors duration-300 group-data-[muted=true]:text-zinc-400 text-[28px] tracking-tighter font-normal leading-7">
-                    Seamless Integration Across Teams &amp; Tools
+                    No heavy lifting. Just smart, connected infrastructure.
                   </h3>{" "}
                 </div>{" "}
               </div>{" "}
               <p className="max-w-[400px] tracking-tight leading-5 font-light text-background">
                 {" "}
-                Connect directly to your existing stack — from Notion to Google
-                Drive to custom CRMs — with flexible APIs and SDKs that let
-                every team tap into memory instantly.{" "}
+                Plug TAU into your existing stack - from Ethereum mainnet to
+                Polygon, Arbitrum, or any EVM chain. Flexible APIs, SDKs, and
+                Solidity helpers (RewardDistributor, ProofAnchors) let any dApp,
+                wallet, or protocol access fraud-resistant trust anchors
+                instantly.
               </p>{" "}
             </div>{" "}
           </div>
@@ -1075,17 +1004,20 @@ const client = new OpenAI({
                   {" "}
                   <div className="text-zinc-500 uppercase text-xs font-light whitespace-nowrap">
                     {" "}
-                    Own your data. Maintain compliance. Stay in control{" "}
+                    Secure by Design. Fraud-Resistant by Default.
                   </div>{" "}
                   <h3 className="text-black lg:text-[32px] transition-colors duration-300 group-data-[muted=true]:text-zinc-400 text-[28px] tracking-tighter font-normal leading-7">
-                    Secure by Design. <br /> Fully Controllable.
+                    Own your rules. Stay in control.
                   </h3>{" "}
                 </div>{" "}
               </div>{" "}
               <p className="max-w-[400px] tracking-tight leading-5 font-light text-background">
                 {" "}
-                Deploy supermemory in the cloud, on-prem, or directly on-device
-                — with full control over where and how your data is stored.{" "}
+                TAU campaigns are secured with wallet signatures, nonce checks,
+                anomaly detection, and explainable scoring. Proofs are anchored
+                on-chain, sensitive signals are hashed off-chain - giving you
+                full transparency, compliance, and control over how trust is
+                enforced.
               </p>{" "}
             </div>{" "}
           </div>
@@ -1103,7 +1035,7 @@ const client = new OpenAI({
               features • features • features
             </div>{" "}
             <h2 className="text-black text-[44px] max-sm:text-4xl max-sm:leading-9 tracking-tighter font-medium leading-11">
-              It just clicks with your stack
+              The fabric your chain runs on{" "}
             </h2>{" "}
           </div>{" "}
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
@@ -1126,12 +1058,13 @@ const client = new OpenAI({
                     Interoperability{" "}
                   </div>
                   <h3 className="text-black text-[28px] max-sm:text-2xl lg:text-[32px] lg:font-medium tracking-tighter font-normal leading-7">
-                    Model-interoperable APIs{" "}
+                    Chain-Interoperable APIs
                   </h3>
                   <p className="text-zinc-500 tracking-tight leading-5 font-light">
-                    supermemory works with any LLM provider. So you can keep
-                    switching, without lock-in. Switch between models. keep your
-                    memory.
+                    TAU works across Ethereum and EVM chains with standard APIs
+                    and proof contracts. Switch between networks without lock-in
+                    - campaigns, loyalty points, and rewards remain anchored in
+                    TAU’s trust fabric no matter where your users are active.
                   </p>
                 </div>{" "}
               </div>{" "}
@@ -1151,11 +1084,13 @@ const client = new OpenAI({
                     Performance{" "}
                   </div>
                   <h3 className="text-black text-[28px] max-sm:text-2xl lg:text-[32px] lg:font-medium tracking-tighter font-normal leading-7">
-                    Sub-400ms latency at scale{" "}
+                    Sub-400ms Proof Verification at Scale
                   </h3>
                   <p className="text-zinc-500 tracking-tight leading-5 font-light">
-                    supermemory is built for speed and scale. We re-imagined RAG
-                    to be faster and more efficient.
+                    TAU is engineered for speed and scale as an OP Stack
+                    Layer-2. Fraud checks, proof verifications, and reward
+                    settlements run in under 400ms - making high-volume
+                    campaigns cheaper, faster, and verifiable by default.
                   </p>{" "}
                 </div>{" "}
               </div>{" "}
@@ -1176,11 +1111,14 @@ const client = new OpenAI({
                       Efficiency{" "}
                     </div>
                     <h3 className="text-black text-[28px] max-sm:text-2xl lg:text-[32px] lg:font-medium lg:max-w-56 tracking-tighter font-normal leading-7">
-                      Best in class performance{" "}
+                      Best-in-class trust performance
                     </h3>{" "}
                     <p className="text-zinc-500 tracking-tight leading-5 font-light">
-                      supermemory delivers stronger precision and recall at
-                      every benchmark. And it's ridiculously easy to start.{" "}
+                      TAU outperforms traditional campaign systems by delivering
+                      stronger precision in detecting Sybil wallets, anomalous
+                      activity, and fraudulent behaviors. Every proof is
+                      verifiable on-chain, giving projects unmatched reliability
+                      - and it’s ridiculously easy to start integrating.
                     </p>{" "}
                   </div>{" "}
                 </div>
@@ -1189,12 +1127,12 @@ const client = new OpenAI({
                   <div className="text-zinc-500 uppercase text-xs font-light">
                     comparison of evaluation metrics:
                     <br />
-                    <span className="text-gradient">supermemory</span> vs major
-                    memory provider
+                    <span className="text-gradient"> TAU</span> vs major trust
+                    provider
                   </div>{" "}
                   <img
                     src="/graph.TiFAP9PE.svg"
-                    alt='comparison of evaluation metrics:<br> <span className="text-gradient">supermemory</span> vs major memory provider'
+                    alt='comparison of evaluation metrics:<br> <span className="text-gradient">tau</span> vs major memory provider'
                     loading="lazy"
                     className="w-full"
                   />
@@ -1222,11 +1160,13 @@ const client = new OpenAI({
                   </div>{" "}
                   <h3 className="text-black text-[28px] max-sm:text-2xl lg:text-[32px] lg:font-medium tracking-tighter font-normal leading-7">
                     {" "}
-                    Works with AI SDK, Langchain, and more{" "}
+                    Works with wallets, dApps, and more{" "}
                   </h3>{" "}
                   <p className="text-zinc-500 tracking-tight leading-5 font-light">
-                    supermemory works with any LLM provider. So you can keep
-                    switching, without lock-in.
+                    TAU ships with SDKs and Solidity helpers (RewardDistributor,
+                    ProofAnchors) that plug into any EVM chain. No vendor
+                    lock-in - just seamless integration into your existing Web3
+                    stack.
                   </p>{" "}
                 </div>{" "}
               </div>{" "}
@@ -1260,17 +1200,12 @@ const client = new OpenAI({
                     Deploy in a day, not months{" "}
                   </h3>{" "}
                   <p className="text-zinc-500 tracking-tight leading-5 font-light">
-                    SDKs available for Python and Javascript.
+                    TAU SDKs are available for JavaScript/TypeScript and Python,
+                    making it easy to launch campaigns, anchor proofs, and
+                    verify rewards with just a few lines of code. Build trust
+                    into your app without weeks of setup.
                     <br />
                     <br />{" "}
-                    <a
-                      href="https://docs.supermemory.ai/sdks/typescript"
-                      className="underline"
-                      aria-label="Learn more about the supermemory SDKs"
-                      data-analytics-id="features-learn-more-sdks"
-                    >
-                      Learn more
-                    </a>
                   </p>{" "}
                 </div>{" "}
               </div>{" "}
@@ -1290,11 +1225,12 @@ const client = new OpenAI({
                 product • product • product
               </div>
               <h2 className="text-white text-[44px] max-sm:text-4xl max-sm:leading-9 lg:text-5xl lg:font-medium tracking-tighter leading-11">
-                Add context to your agentic apps with few lines of code
+                Add trust to your Web3 apps with a few lines of code
               </h2>
               <p className="text-white font-light tracking-tight leading-5 max-w-[30rem] w-full">
-                supermemory provides SDKs to make integration as simple as
-                possible
+                TAU provides SDKs and Solidity helpers so you can integrate
+                fraud-resistant campaigns, referral links, and proof
+                verifications in minutes — not months.
               </p>
             </div>
             <div
@@ -1324,16 +1260,14 @@ const client = new OpenAI({
                   <div className="hidden group-data-[active-language='typescript']:block">
                     <div className="text-white font-mono">
                       <span className="text-pink-600">npm</span> install
-                      <span className="text-gradient">supermemory</span>
+                      <span className="text-gradient"> @tau/sdk</span>
                     </div>
                     <div className="absolute top-4 right-6 max-sm:hidden">
                       <button
-                        data-code="npm install supermemory"
+                        data-code="npm install tau/sdk"
                         id="2ad424ef-f969-462f-b391-f057e2e52baf"
                         className="flex gap-2 items-center cursor-pointer text-white"
-                        onClick={() =>
-                          copyToClipboard("npm install supermemory")
-                        }
+                        onClick={() => copyToClipboard("npm install tau/sdk")}
                       >
                         <div className="size-4">
                           <svg
@@ -1367,16 +1301,14 @@ const client = new OpenAI({
                   <div className="hidden group-data-[active-language='python']:block">
                     <div className="text-white font-mono">
                       <span className="text-pink-600">pip</span> install
-                      <span className="text-gradient">supermemory</span>
+                      <span className="text-gradient">tau/sdk</span>
                     </div>
                     <div className="absolute top-4 right-6 max-sm:hidden">
                       <button
-                        data-code="pip install supermemory"
+                        data-code="pip install tau/sdk"
                         id="a28e8f29-c64c-4dcd-8ee2-8e08cb79f5b7"
                         className="flex gap-2 items-center cursor-pointer text-white"
-                        onClick={() =>
-                          copyToClipboard("pip install supermemory")
-                        }
+                        onClick={() => copyToClipboard("pip install tau/sdk")}
                       >
                         <div className="size-4">
                           <svg
@@ -1409,9 +1341,9 @@ const client = new OpenAI({
                   </div>
                 </div>
               </div>
-              <a
+              <Link
                 className="p-0.5 whitespace-nowrap group text-white w-fit rounded-2xl lg:mt-8 gradient-button-wrapper bg-card"
-                href="https://docs.supermemory.ai/"
+                href="/docs"
                 data-analytics-id="sdks-start-building"
               >
                 <div className="rounded-[14px] p-1 bg-gradient-to-b from-zinc-800 to-zinc-900/90">
@@ -1421,7 +1353,7 @@ const client = new OpenAI({
                     </span>
                   </div>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -1435,7 +1367,9 @@ const client = new OpenAI({
         />
         <div className="flex flex-col items-center gap-4 text-center mx-auto lg:max-w-5xl w-full">
           <h3 className="text-white text-[28px] max-sm:text-xl max-w-[400px] tracking-tighter font-normal leading-7 mx-auto">
-            Trusted by Open Source, enterprise, and more than
+            Trusted by Projects, Protocols, and Chains
+            <br />
+            More than
           </h3>
           <img
             src="/35k.6cN56SOd.svg"
@@ -1443,44 +1377,48 @@ const client = new OpenAI({
             className="mt-4 sm:h-40 h-20 lg:h-60"
           />
           <h3 className="text-white text-[28px] max-w-[400px] tracking-tighter font-normal leading-7">
-            of you
+            wallets and developers already interact with TAU’s proof and trust
+            infrastructure — from testnet campaigns to early ecosystem
+            integrations.{" "}
           </h3>
           <div className="flex max-lg:flex-wrap text-pretty gap-16 mt-8 text-white uppercase text-xs font-light mx-auto justify-center">
             <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full">
               <img
-                src="/product-hunt.Ciyf5YNm.svg"
-                alt="Product Hunt"
+                src="https://ethereum.org/static/28214bb144d54b4eb9e14c7b4d02e9b3/ee08f/eth-diamond-white.webp"
+                alt="Ethereum"
                 className="size-16"
               />
-              <div>#1 Product of the day at Product hunt</div>
+              <div>Anchored to Ethereum for settlement and security.</div>
             </div>
             <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full lg:mt-20">
               <img
-                src="/github.CfXqoa4M.svg"
-                alt="Github"
+                src="https://optimism.io/brand"
+                alt="Optimism"
                 className="size-16"
               />
-              <div>Starred by over 9,000 users on Github</div>
+              <div>Built on OP Stack for scalable Layer-2 performance.</div>
             </div>
             <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full lg:mt-32">
-              <img src="/flow.PnwRS8Qx.png" alt="Flow" className="size-16" />
-              <div>Flow uses supermemory to build the cursor for writing</div>
-            </div>
-            <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full lg:mt-20">
               <img
-                src="/medtech.C6Dus75J.png"
-                alt="Medtech Vendors"
-                className="h-9"
+                src="https://polygon.technology/brand-assets"
+                alt="polygon"
+                className="size-16"
               />
               <div>
-                Medtech Vendors uses supermemory to search through 500k vendors
+                Multi-chain ready: campaigns run across Polygon and beyond.
               </div>
             </div>
+            <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full lg:mt-20">
+              <img src="/github.CfXqoa4M.svg" alt="GitHub" className="h-9" />
+              <div>Open-source SDKs trusted by developers worldwide.</div>
+            </div>
             <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full">
-              <img src="/mixus.C89kGzQv.png" alt="Mixus" className="h-10" />
-              <div>
-                Mixus uses supermemory to power co-intelligence Agentic platform
-              </div>
+              <img
+                src="https://walletconnect.com/branding"
+                alt="WalletConnect"
+                className="h-10"
+              />
+              <div>Seamless wallet integration across Web3 ecosystems. </div>
             </div>
           </div>
         </div>
@@ -1494,13 +1432,13 @@ const client = new OpenAI({
           <div className="flex items-end justify-between">
             <div className="flex flex-col gap-4">
               <div className="text-zinc-500 uppercase text-xs font-light">
-                A glimpse into the minds behind supermemory
+                A glimpse into the minds behind Tau
               </div>
               <h2 className="text-white text-[44px] tracking-tighter font-medium leading-11">
-                Latest blog posts
+                Latest Updates
               </h2>
             </div>
-            <a
+            <Link
               className="p-0.5 whitespace-nowrap group/button text-white rounded-2xl gradient-button-wrapper bg-card text-base hidden sm:block font-medium"
               href="/blog"
             >
@@ -1509,10 +1447,10 @@ const client = new OpenAI({
                   View all
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
           <ul className="grid lg:grid-cols-3 md:grid-cols-2 text-white pt-16 gap-8"></ul>
-          <a
+          <Link
             className="p-0.5 whitespace-nowrap group/button text-white rounded-2xl gradient-button-wrapper bg-card text-base block sm:hidden font-medium"
             href="/blog"
           >
@@ -1521,7 +1459,7 @@ const client = new OpenAI({
                 View all
               </div>
             </div>
-          </a>
+          </Link>
         </div>
       </section>
     </>

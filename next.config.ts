@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+const path = require("path");
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -6,6 +7,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
 export default nextConfig;

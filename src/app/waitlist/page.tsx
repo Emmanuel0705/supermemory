@@ -80,8 +80,8 @@ export default function WaitlistPage() {
               className="text-sm text-white/60 mt-2"
               data-slot="card-description"
             >
-              Thanks for your interest in supermemory. We'll notify you as soon
-              as we're ready for you.
+              Thanks for your interest in tau. We'll notify you as soon as we're
+              ready for you.
             </div>
           </div>
           <div className="px-6" data-slot="card-content">
@@ -118,7 +118,7 @@ export default function WaitlistPage() {
                     <span className="text-orange-500">•</span>
                     <a
                       className="hover:text-white transition-colors underline"
-                      href="https://x.com/supermemoryai"
+                      href="https://x.com/tauai"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
@@ -129,7 +129,7 @@ export default function WaitlistPage() {
                     <span className="text-orange-500">•</span>
                     <a
                       className="hover:text-white transition-colors underline"
-                      href="https://supermemory.link/discord"
+                      href="https://tau.link/discord"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
@@ -180,7 +180,7 @@ export default function WaitlistPage() {
             className="text-sm text-white/60 mt-2"
             data-slot="card-description"
           >
-            Be among the first to experience supermemory when we launch.
+            Be among the first to experience tau when we launch.
           </div>
         </div>
         <div className="px-6" data-slot="card-content">

@@ -30,7 +30,7 @@ export function BrainModel(props: any) {
       brainRef.current?.position as any,
       {
         duration: 1,
-        x: 3.5,
+        x: 3.3,
         y: 1.5,
         z: 0,
       },
