@@ -29,7 +29,7 @@ const cardVariants: Variants = {
 export function About() {
   return (
     <section
-      className="z-30 md:h-screen grid max-md:pt-16 grid-cols-2 max-md:grid-cols-1 gap-10 items-center justify-center px-8 max-w-[1400px] mx-auto text-white"
+      className="z-30 md:h-screen grid max-md:pt-16 grid-cols-2 max-md:grid-cols-1 gap-10 items-center justify-center px-8 max-w-[1800px] mx-auto text-white"
       id="about"
       style={{ transform: "translateY(50px)" }}
     >
@@ -115,7 +115,7 @@ export function About() {
           viewport={{ amount: 0.5, margin: "-200px 0px -200px 0px" }}
           className="relative  size-[500px] flex items-center justify-center"
         >
-          <OrbitingCircles radius={300} iconSize={60}>
+          <OrbitingCircles radius={280} iconSize={60}>
             <img
               src="/notion.NKlZ2H3_.svg"
               alt="brain avatar"

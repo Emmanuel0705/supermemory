@@ -77,10 +77,7 @@ export function DevelopersHero() {
           <div className="flex text-lg gap-6 items-center flex-col sm:flex-row">
             <Link href="/" data-analytics-id="hero-get-tau">
               <div className="relative overflow-hidden text-white rounded-2xl backdrop-blur-sm z-0 before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:transition-all before:duration-200 before:pointer-events-none before:-z-10 before:[mask-image:linear-gradient(to_right,rgba(0,0,0,1),rgba(0,0,0,0.2))] before:[-webkit-mask-image:linear-gradient(to_right,rgba(0,0,0,0.8),rgba(0,0,0,0.3))] before:border-2 before:bg-white/40 before:border-white/30 px-8 py-4 whitespace-nowrap flex items-center gap-4 group w-full sm:w-fit">
-                <span>
-                  Get TAU
-                  <sup className="text-[0.5rem] -top-1">TM</sup>
-                </span>
+                <span>Get TAU</span>
                 <span className="hidden opacity-50 sm:block">⌘ ⏎</span>
               </div>
             </Link>

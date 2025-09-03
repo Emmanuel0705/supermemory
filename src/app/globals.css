@@ -1,6 +1,6 @@
-/* @import "@tailwindcss/typography"; */
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 /* @import "../node_modules/highlight.js/styles/github-dark.min.css"; */
 
 

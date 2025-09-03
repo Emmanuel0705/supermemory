@@ -72,12 +72,12 @@ export default function Blog() {
           <div className="site-header-content outer">
             <div className="site-header-inner inner">
               <img
-                className="site-logo"
-                src="https://supermemory.ai/blog/content/images/2025/06/Frame-2147223248.svg"
-                alt="supermemory - Blog"
+                className="h-40 w-auto mx-auto"
+                src="/logo.QY9mG6Yr.svg"
+                alt="tau - Blog"
               />
-              <p className="site-description font-grotesk">
-                How we build supermemory - best memory engine on the planet.
+              <p className="text-center text-6xl mx-auto max-w-3xl mt-10 font-grotesk">
+                How we build tau - best memory engine on the planet.
               </p>
             </div>
           </div>
@@ -182,12 +182,12 @@ export default function Blog() {
           <div className="site-header-content outer">
             <div className="site-header-inner inner">
               <img
-                className="site-logo"
-                src="https://supermemory.ai/blog/content/images/2025/06/Frame-2147223248.svg"
-                alt="supermemory - Blog"
+                className="h-40 w-auto mx-auto"
+                src="/logo.QY9mG6Yr.svg"
+                alt="tau - Blog"
               />
-              <p className="site-description font-grotesk">
-                How we build supermemory - best memory engine on the planet.
+              <p className="text-center text-6xl mx-auto max-w-3xl mt-10 font-grotesk">
+                How we build tau - best memory engine on the planet.
               </p>
             </div>
           </div>
@@ -215,12 +215,12 @@ export default function Blog() {
         <div className="site-header-content outer z-10">
           <div className="site-header-inner inner">
             <img
-              className="site-logo"
-              src="https://supermemory.ai/blog/content/images/2025/06/Frame-2147223248.svg"
-              alt="supermemory - Blog"
+              className="h-40 w-auto mx-auto"
+              src="/logo.QY9mG6Yr.svg"
+              alt="tau - Blog"
             />
-            <p className="site-description font-grotesk">
-              How we build supermemory - best memory engine on the planet.
+            <p className="text-center text-6xl mx-auto max-w-3xl mt-10 font-grotesk">
+              How we build tau - best memory engine on the planet.
             </p>
           </div>
         </div>
@@ -295,8 +295,7 @@ export default function Blog() {
       <footer className="site-footer outer">
         <div className="inner">
           <section className="copyright">
-            <a href="https://supermemory.ai/blog">supermemory - Blog</a> &copy;
-            2025
+            <a href="https://supermemory.ai/blog">tau - Blog</a> &copy; 2025
           </section>
           <nav className="site-footer-nav">
             <ul className="nav">
@@ -304,7 +303,7 @@ export default function Blog() {
                 <a href="blog.html#/portal/">Sign up</a>
               </li>
               <li className="nav-get-started">
-                <a href="https://console.supermemory.ai">Get Started</a>
+                <a href="https://console.tau.network">Get Started</a>
               </li>
             </ul>
           </nav>

@@ -61,10 +61,7 @@ export function Header() {
                   </a>
                 </div>
                 <a className="whitespace-nowrap group text-white w-full md:w-fit rounded-2xl py-3 px-5 border-2 border-white/30 hover:bg-white/10 transition-colors duration-200">
-                  <span>
-                    Connect Wallet
-                    <sup className="text-[0.5rem] -top-1">TM</sup>
-                  </span>
+                  <span>Connect Wallet</span>
                 </a>
               </div>
             </div>
@@ -132,10 +129,7 @@ export function Header() {
                     <span>4.1K</span>
                   </a>
                   <a className="block w-full text-center text-white rounded-2xl py-3 px-5 border-2 border-white/30 hover:bg-white/10 transition-colors duration-200">
-                    <span>
-                      Connect Wallet{" "}
-                      <sup className="text-[0.5rem] -top-1">TM</sup>
-                    </span>
+                    <span>Connect Wallet </span>
                   </a>
                 </div>
               </div>

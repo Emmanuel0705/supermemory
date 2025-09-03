@@ -9,6 +9,16 @@ import { InfiniteMovingCards } from "../infinite-moving-cards";
 import { CodeBlock } from "../ui/code-block";
 import Link from "next/link";
 
+interface MediumPost {
+  title: string;
+  link: string;
+  pubDate: string;
+  content: string;
+  thumbnail?: string;
+  categories: string[];
+  author: string;
+}
+
 const tabs = [
   {
     name: "Add TauNet",
@@ -74,6 +84,9 @@ const status = await response.json()
 
 export function Developers() {
   const [activeTab, setActiveTab] = useState(0);
+  const [posts, setPosts] = useState<MediumPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const code = `
 import OpenAI from "openai"
@@ -85,6 +98,53 @@ const client = new OpenAI({
   const copyToClipboard = (code: string) => {
     navigator.clipboard.writeText(code);
   };
+
+  // Helper functions for blog posts
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
+  const extractThumbnail = (content: string) => {
+    const imgMatch = content.match(/<img[^>]+src="([^">]+)"/);
+    return imgMatch ? imgMatch[1] : "/images/default-blog-thumbnail.jpg";
+  };
+
+  const stripHtml = (html: string) => {
+    return html.replace(/<[^>]*>/g, "").substring(0, 200) + "...";
+  };
+
+  const estimateReadTime = (content: string) => {
+    const wordsPerMinute = 200;
+    const wordCount = content.split(" ").length;
+    const readTime = Math.ceil(wordCount / wordsPerMinute);
+    return `${readTime} min read`;
+  };
+
+  // Fetch blog posts
+  useEffect(() => {
+    const fetchMediumPosts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/medium-posts");
+        if (!response.ok) {
+          throw new Error("Failed to fetch posts");
+        }
+        const data = await response.json();
+        setPosts(data.posts);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to fetch posts");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMediumPosts();
+  }, []);
 
   return (
     <>
@@ -98,7 +158,7 @@ const client = new OpenAI({
           height={600}
         />
         <img
-          src="/gradient-icon.DNStxMeh.svg"
+          src="/white-logo.png"
           alt="gradient-icon"
           className="h-24 max-sm:h-16 mx-auto"
           width={96}
@@ -119,14 +179,30 @@ const client = new OpenAI({
         </p>
 
         <div className="flex justify-center lg:mt-22 max-sm:hidden">
-          <img
+          {/* <img
             src="/memory-engineering.png"
             alt="memory-engineering"
             className="w-9/10 max-w-4xl h-auto"
             width={800}
             height={400}
             loading="lazy"
-          />
+          /> */}
+          <div className="w-full max-w-4xl h-8 shadow-lg bg-[#efefef] rounded-full px-4 flex justify-between items-center relative">
+            <div className="w-full max-w-4xl h-8 shadow-lg bg-[#efefef] rounded-full px-4 flex justify-between items-center absolute -top-1 left-px -z-10 opacity-70" />
+
+            <div className="flex gap-1 items-center">
+              <div className="w-3 h-3 bg-red-500 rounded-full" />
+              <div className="w-3 h-3 bg-yellow-500 rounded-full" />
+              <div className="w-3 h-3 bg-green-500 rounded-full" />
+              <div className="text-gray-500 text-sm ms-2 font-mono">
+                tau-chain-context.terminal
+              </div>
+            </div>
+            <div className="text-gray-500 text-xs font-mono">
+              {" "}
+              ~ POWERED.BY.TAU
+            </div>
+          </div>
         </div>
         <div
           id="marquee-wrapper"
@@ -141,7 +217,7 @@ const client = new OpenAI({
             >
               <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
                 <span className="text-white font-light">
-                  $ init multimodal support
+                  $ calculate chain_scaling
                 </span>
                 <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
                   <li className="flex items-center gap-2 uppercase text-xs">
@@ -153,7 +229,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Websites: JS &amp; rate limits are messy</span>
+                    <span>GAS COSTS SPIKE AS NETWORK GROWS</span>
                   </li>
                   <li className="flex items-center gap-2 uppercase text-xs">
                     <div className="size-3">
@@ -164,7 +240,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>PDFs: OCR fails, extraction inconsistent</span>
+                    <span>LATENCY RISES WITH DATA VOLUME</span>
                   </li>
                   <li className="flex items-center gap-2 uppercase text-xs">
                     <div className="size-3">
@@ -175,7 +251,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Authentication tokens expire constantly</span>
+                    <span> ENGINEERING HOURS BURN TOO FAST</span>
                   </li>
                 </ul>
               </div>
@@ -186,7 +262,7 @@ const client = new OpenAI({
             >
               <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
                 <span className="text-white font-light">
-                  $ init vector_database
+                  $ setup cross_chain_sync
                 </span>
                 <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
                   <li className="flex items-center gap-2 uppercase text-xs">
@@ -198,7 +274,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Way too expensive. Time to switch.</span>
+                    <span>BRIDGES FAIL BETWEEN NETWORKS</span>
                   </li>
                   <li className="flex items-center gap-2 uppercase text-xs">
                     <div className="size-3">
@@ -209,7 +285,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Painfully slow. Let's try another.</span>
+                    <span>RATE LIMITS BLOCK LARGE FLOWS</span>
                   </li>
                   <li className="flex items-center gap-2 uppercase text-xs">
                     <div className="size-3">
@@ -220,7 +296,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Won't scale. Back to square one.</span>
+                    <span>IMAGES / VIDEO REQUIRE EXTRA AI LAYERS</span>
                   </li>
                   <li className="flex items-center gap-2 uppercase text-xs">
                     <div className="size-3">
@@ -231,7 +307,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Maintenance nightmare. Need alternatives.</span>
+                    <span>CONTEXT GETS LOST IN TRANSIT</span>
                   </li>
                 </ul>
               </div>
@@ -242,7 +318,7 @@ const client = new OpenAI({
             >
               <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
                 <span className="text-white font-light">
-                  $ choose embedding_model
+                  $ parse multi_format_inputs
                 </span>
                 <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
                   <li className="flex items-center gap-2 uppercase text-xs">
@@ -254,7 +330,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Which model fits your use case?</span>
+                    <span>BLOCKCHAINS: RAW LOGS ARE HARD TO READ</span>
                   </li>
                   <li className="flex items-center gap-2 uppercase text-xs">
                     <div className="size-3">
@@ -265,7 +341,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Confusing performance tradeoffs</span>
+                    <span>SMART CONTRACTS: DIFFERENT DATA SHAPES</span>
                   </li>
                   <li className="flex items-center gap-2 uppercase text-xs">
                     <div className="size-3">
@@ -276,7 +352,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Can't keep up with new releases</span>
+                    <span>USER CONTEXT: LOST ACROSS FORMATS</span>
                   </li>
                 </ul>
               </div>
@@ -287,7 +363,7 @@ const client = new OpenAI({
             >
               <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
                 <span className="text-white font-light">
-                  $ handle format_parsing
+                  $ choose intelligence_layer
                 </span>
                 <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
                   <li className="flex items-center gap-2 uppercase text-xs">
@@ -299,7 +375,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>Markdown: Tables break everything</span>
+                    <span>WHICH PROTOCOL FITS YOUR USE CASE?</span>
                   </li>
                   <li className="flex items-center gap-2 uppercase text-xs">
                     <div className="size-3">
@@ -310,7 +386,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>HTML: Scripts and styles interfere</span>
+                    <span>TRADEOFFS BETWEEN SPEED, SECURITY, AND COST</span>
                   </li>
                   <li className="flex items-center gap-2 uppercase text-xs">
                     <div className="size-3">
@@ -321,400 +397,7 @@ const client = new OpenAI({
                         loading="lazy"
                       />
                     </div>
-                    <span>PDF: Layout ruins extraction</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li
-              className="bg-zinc-800 text-left p-0.4 rounded-3xl w-96 h-fit transition-transform duration-150 select-none"
-              style={{ "--rotation": "4.5deg" } as React.CSSProperties}
-            >
-              <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
-                <span className="text-white font-light">
-                  $ calculate scaling_costs
-                </span>
-                <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Costs explode at production scale</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Performance degrades as data grows</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Engineering hours pile up fast</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li
-              className="bg-zinc-800 text-left p-0.4 rounded-3xl w-96 h-fit transition-transform duration-150 select-none"
-              style={{ "--rotation": "7.5deg" } as React.CSSProperties}
-            >
-              <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
-                <span className="text-white font-light">
-                  $ setup connection_sync
-                </span>
-                <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Sync failures between data sources</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>API rate limits during large syncs</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Images: Need vision models now?</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Audio/Video: Transcription costs soar</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li
-              className="bg-zinc-800 text-left p-0.4 rounded-3xl w-96 h-fit transition-transform duration-150 select-none"
-              style={{ "--rotation": "-7.5deg" } as React.CSSProperties}
-            >
-              <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
-                <span className="text-white font-light">
-                  $ init multimodal support
-                </span>
-                <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Websites: JS &amp; rate limits are messy</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>PDFs: OCR fails, extraction inconsistent</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Authentication tokens expire constantly</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li
-              className="bg-zinc-800 text-left p-0.4 rounded-3xl w-96 h-fit transition-transform duration-150 select-none"
-              style={{ "--rotation": "-4.5deg" } as React.CSSProperties}
-            >
-              <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
-                <span className="text-white font-light">
-                  $ init vector_database
-                </span>
-                <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Way too expensive. Time to switch.</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Painfully slow. Let's try another.</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Won't scale. Back to square one.</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Maintenance nightmare. Need alternatives.</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li
-              className="bg-zinc-800 text-left p-0.4 rounded-3xl w-96 h-fit transition-transform duration-150 select-none"
-              style={{ "--rotation": "-1.5deg" } as React.CSSProperties}
-            >
-              <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
-                <span className="text-white font-light">
-                  $ choose embedding_model
-                </span>
-                <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/warning.DXtqSwJQ.svg"
-                        alt="warning"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Which model fits your use case?</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/warning.DXtqSwJQ.svg"
-                        alt="warning"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Confusing performance tradeoffs</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/warning.DXtqSwJQ.svg"
-                        alt="warning"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Can't keep up with new releases</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li
-              className="bg-zinc-800 text-left p-0.4 rounded-3xl w-96 h-fit transition-transform duration-150 select-none"
-              style={{ "--rotation": "1.5deg" } as React.CSSProperties}
-            >
-              <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
-                <span className="text-white font-light">
-                  $ handle format_parsing
-                </span>
-                <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/warning.DXtqSwJQ.svg"
-                        alt="warning"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Markdown: Tables break everything</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/warning.DXtqSwJQ.svg"
-                        alt="warning"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>HTML: Scripts and styles interfere</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/warning.DXtqSwJQ.svg"
-                        alt="warning"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>PDF: Layout ruins extraction</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li
-              className="bg-zinc-800 text-left p-0.4 rounded-3xl w-96 h-fit transition-transform duration-150 select-none"
-              style={{ "--rotation": "4.5deg" } as React.CSSProperties}
-            >
-              <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
-                <span className="text-white font-light">
-                  $ calculate scaling_costs
-                </span>
-                <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Costs explode at production scale</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Performance degrades as data grows</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Engineering hours pile up fast</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li
-              className="bg-zinc-800 text-left p-0.4 rounded-3xl w-96 h-fit transition-transform duration-150 select-none"
-              style={{ "--rotation": "7.5deg" } as React.CSSProperties}
-            >
-              <div className="bg-card rounded-[22px] flex flex-col gap-8 p-6 shadow-[inset_0_0_0_6px_#06060640,inset_0_6px_3px_#54545440]">
-                <span className="text-white font-light">
-                  $ setup connection_sync
-                </span>
-                <ul className="text-zinc-500 flex flex-col gap-3 whitespace-nowrap">
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Sync failures between data sources</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>API rate limits during large syncs</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Images: Need vision models now?</span>
-                  </li>
-                  <li className="flex items-center gap-2 uppercase text-xs">
-                    <div className="size-3">
-                      <img
-                        src="/error.C9UR1YQs.svg"
-                        alt="error"
-                        className="size-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span>Audio/Video: Transcription costs soar</span>
+                    <span>NEW L2s AND MODELS DROP EVERY MONTH</span>
                   </li>
                 </ul>
               </div>
@@ -913,7 +596,7 @@ const client = new OpenAI({
                   </div>{" "}
                   <div className="sm:size-24">
                     {" "}
-                    <Asteric className="max-sm:h-12 w-full" />{" "}
+                    <Asteric />{" "}
                   </div>{" "}
                 </div>{" "}
                 <div className="space-y-2 lg:space-y-6 w-80 lg:w-96">
@@ -955,7 +638,7 @@ const client = new OpenAI({
                   </div>{" "}
                   <div className="sm:size-24">
                     {" "}
-                    <Asteric className="max-sm:h-12 w-full" />{" "}
+                    <Asteric />{" "}
                   </div>{" "}
                 </div>{" "}
                 <div className="space-y-2 lg:space-y-6 w-80 lg:w-96">
@@ -997,7 +680,7 @@ const client = new OpenAI({
                   </div>{" "}
                   <div className="sm:size-24">
                     {" "}
-                    <Asteric className="max-sm:h-12 w-full" />{" "}
+                    <Asteric />{" "}
                   </div>{" "}
                 </div>{" "}
                 <div className="space-y-2 lg:space-y-6 w-80 lg:w-96">
@@ -1384,15 +1067,15 @@ const client = new OpenAI({
           <div className="flex max-lg:flex-wrap text-pretty gap-16 mt-8 text-white uppercase text-xs font-light mx-auto justify-center">
             <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full">
               <img
-                src="https://ethereum.org/static/28214bb144d54b4eb9e14c7b4d02e9b3/ee08f/eth-diamond-white.webp"
+                src="https://www.pngkey.com/png/full/264-2645391_ethereum-white-logo.png"
                 alt="Ethereum"
-                className="size-16"
+                className="h-16 w-auto"
               />
               <div>Anchored to Ethereum for settlement and security.</div>
             </div>
             <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full lg:mt-20">
               <img
-                src="https://optimism.io/brand"
+                src="https://cdn-icons-png.freepik.com/512/14764/14764102.png"
                 alt="Optimism"
                 className="size-16"
               />
@@ -1400,7 +1083,7 @@ const client = new OpenAI({
             </div>
             <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full lg:mt-32">
               <img
-                src="https://polygon.technology/brand-assets"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKDTnluu0x1IwlUleU1DUN_VQHCt2S5sEZrg&s"
                 alt="polygon"
                 className="size-16"
               />
@@ -1414,9 +1097,9 @@ const client = new OpenAI({
             </div>
             <div className="gap-7 flex flex-col items-center max-lg:w-52 w-full">
               <img
-                src="https://walletconnect.com/branding"
+                src="https://static.chainbroker.io/mediafiles/projects/walletconnect/walletconnect.jpeg"
                 alt="WalletConnect"
-                className="h-10"
+                className="h-10 w-auto"
               />
               <div>Seamless wallet integration across Web3 ecosystems. </div>
             </div>
@@ -1449,7 +1132,7 @@ const client = new OpenAI({
               </div>
             </Link>
           </div>
-          <ul className="grid lg:grid-cols-3 md:grid-cols-2 text-white pt-16 gap-8"></ul>
+
           <Link
             className="p-0.5 whitespace-nowrap group/button text-white rounded-2xl gradient-button-wrapper bg-card text-base block sm:hidden font-medium"
             href="/blog"
@@ -1461,6 +1144,85 @@ const client = new OpenAI({
             </div>
           </Link>
         </div>
+        {loading ? (
+          <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-8">
+            {[...Array(4)].map((_, index) => (
+              <div
+                key={index}
+                className="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 animate-pulse"
+              >
+                <div className="aspect-video bg-zinc-800 rounded-lg mb-4"></div>
+                <div className="space-y-3">
+                  <div className="h-6 bg-zinc-800 rounded"></div>
+                  <div className="h-4 bg-zinc-800 rounded"></div>
+                  <div className="h-4 bg-zinc-800 rounded w-3/4"></div>
+                  <div className="flex justify-between">
+                    <div className="h-3 bg-zinc-800 rounded w-20"></div>
+                    <div className="h-3 bg-zinc-800 rounded w-16"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-zinc-400 text-lg">Failed to load blog posts</p>
+            <p className="text-zinc-500 text-sm">{error}</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-8">
+            {posts.slice(0, 4).map((post, index) => (
+              <article
+                key={index}
+                className="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 hover:border-zinc-700 transition-colors duration-300"
+              >
+                <Link
+                  href={post.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group"
+                >
+                  <div className="aspect-video bg-zinc-800 rounded-lg mb-4 overflow-hidden">
+                    <img
+                      src={extractThumbnail(post.content)}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="space-y-3">
+                    <h3 className="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors duration-300 line-clamp-2">
+                      {post.title}
+                    </h3>
+
+                    <p className="text-zinc-400 text-sm line-clamp-3">
+                      {stripHtml(post.content)}
+                    </p>
+
+                    <div className="flex items-center justify-between text-xs text-zinc-500">
+                      <span>{formatDate(post.pubDate)}</span>
+                      <span>{estimateReadTime(post.content)}</span>
+                    </div>
+
+                    <div className="text-xs text-zinc-500">
+                      by {post.author}
+                    </div>
+                  </div>
+                </Link>
+              </article>
+            ))}
+          </div>
+        )}
+
+        {!loading && !error && posts.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-zinc-400 text-lg">No blog posts available</p>
+            <p className="text-zinc-500 text-sm">
+              Check back later for updates
+            </p>
+          </div>
+        )}
       </section>
     </>
   );

@@ -30,7 +30,7 @@ export function BrainModel(props: any) {
       brainRef.current?.position as any,
       {
         duration: 1,
-        x: 3.3,
+        x: 3.4,
         y: 1.5,
         z: 0,
       },
@@ -44,7 +44,7 @@ export function BrainModel(props: any) {
     );
     timelineRef.current.to(
       brainRef.current?.scale as any,
-      { duration: 1, x: 0.42, y: 0.42, z: 0.42 },
+      { duration: 1, x: 0.38, y: 0.38, z: 0.38 },
       0
     );
     timelineRef.current.to(

@@ -20,9 +20,7 @@ export function Footer() {
         >
           <div className="rounded-[14px] p-1 bg-gradient-to-b from-zinc-800 to-zinc-900/90">
             <div className="rounded-[10px] font-light text-xl flex gap-8 group-hover:bg-black transition-colors duration-300 py-3 px-16 bg-card shadow-[0_0_10px_rgba(0,0,0,0.4)]">
-              <span>
-                Get Tau <sup className="text-[0.5rem] -top-1">TM</sup>
-              </span>
+              <span>Get Tau</span>
             </div>
           </div>
         </Link>
@@ -42,8 +40,8 @@ export function Footer() {
 
       <div className="gap-4 flex lg:px-8 lg:justify-between w-full flex-col lg:flex-row-reverse items-center text-white text-xs font-light">
         <div className="flex flex-col lg:flex-row gap-4 items-center uppercase">
-          <Link href="/overview">Updates</Link>
-          <Link href="/chat">Web App</Link>
+          <Link href="/blog">Updates</Link>
+          <a href="https://supermemory.chat/">Web App</a>
           <Link href="/docs">Docs</Link>
         </div>
         <div className="flex gap-4 items-center flex-col lg:flex-row">
@@ -59,7 +57,7 @@ export function Footer() {
         <div className="uppercase">© 2025 graindor.org </div>
       </div>
 
-      <div className="absolute inset-0 w-full h-full -z-10">
+      <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden">
         <UnicornScene
           projectId="uyHjeqAD3OkD10tavjsD" // Replace with your Unicorn Studio project ID
           width="100%" // Set desired width
